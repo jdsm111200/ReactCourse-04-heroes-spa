@@ -1,12 +1,9 @@
 import { RouterProvider } from "react-router-dom";
+import { NavBar } from "./layouts/components/NavBar";
 import router from "./routes/Router";
 
 function App() {
-  return (
-    <div className="grid">
-      <RouterProvider router={router} />
-    </div>
-  );
+  return <RouterProvider router={router} />;
 }
 
 export default App;
