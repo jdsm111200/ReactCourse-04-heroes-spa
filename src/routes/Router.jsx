@@ -1,7 +1,7 @@
 import { createBrowserRouter, Navigate } from "react-router-dom";
-import { DcPage } from "../heroes/pages/DcPage";
-import { MarvelPage } from "../heroes/pages/MarvelPage";
-import { MainLayout } from "../layouts/MainLayout";
+import { LoginPage } from "../auth";
+import { MarvelPage, DcPage, SearchPage, HeroePage } from "../heroes";
+import { MainLayout } from "../layouts";
 
 const router = createBrowserRouter([
   {
@@ -20,7 +20,23 @@ const router = createBrowserRouter([
         path: "/dc",
         element: <DcPage />,
       },
+      {
+        path: "/search",
+        element: <SearchPage />,
+      },
+      {
+        path: "/hero/:heroId",
+        element: <HeroePage />,
+      },
     ],
+  },
+  {
+    path: "/login",
+    element: <LoginPage />,
+  },
+  {
+    path: "*",
+    element: <Navigate to="/marvel" />,
   },
 ]);
 export default router;
