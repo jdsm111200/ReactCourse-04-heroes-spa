@@ -1,6 +1,5 @@
 import React from "react";
 import { useMemo } from "react";
-import { useEffect } from "react";
 import { Navigate, useNavigate, useParams } from "react-router-dom";
 import { getHeroById } from "../helpers";
 
@@ -16,7 +15,7 @@ export const HeroePage = () => {
       <div className="col-md-4 mb-3 mb-md-0">
         <img
           className="img-fluid img-thumbnail animate__animated animate__fadeInLeft"
-          src={`../assets/heroes/${heroId}.jpg`}
+          src={`/assets/heroes/${heroId}.jpg`}
           alt={hero.superhero}
         />
       </div>
