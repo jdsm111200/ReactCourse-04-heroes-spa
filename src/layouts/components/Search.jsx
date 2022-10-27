@@ -1,16 +1,28 @@
-import React from "react";
+import queryString from "query-string";
+import { useEffect } from "react";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { createSearchParams, useLocation, useNavigate } from "react-router-dom";
 
 export const Search = () => {
-  const [search, setSearch] = useState("");
+  const location = useLocation();
+  const { q = "" } = queryString.parse(location.search);
+  const [search, setSearch] = useState(q);
   const navigate = useNavigate();
+  
+  useEffect(() => {
+    setSearch(q);
+  }, [q]);
+
   const onSearch = (e) => {
     e.preventDefault();
     if (search.trim() !== "" && search.trim().length > 0) {
-      return navigate(`/search?q=${search}`);
+      return navigate({
+        pathname: "/search",
+        search: `?${createSearchParams({ q: search })}`,
+      });
     }
   };
+
   return (
     <form className="d-flex me-auto" role="search" onSubmit={onSearch}>
       <input
