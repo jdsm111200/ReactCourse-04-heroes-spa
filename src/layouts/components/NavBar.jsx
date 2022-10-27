@@ -1,4 +1,6 @@
+import { useContext } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
+import { AuthContext } from "../../auth/context/AuthContext";
 import { Search } from "./Search";
 
 const pages = [
@@ -14,7 +16,15 @@ const pages = [
 
 export const NavBar = () => {
   const navigate = useNavigate();
+  const { user, logged, logout } = useContext(AuthContext);
+  const avatar =
+    user &&
+    user.name
+      .split(" ")
+      .map((n) => n[0])
+      .join("");
   const onLogout = () => {
+    logout();
     navigate("/login", {
       //! replace evita que la persona pueda volver a la página anterior (borra el historial)
       replace: true,
@@ -62,26 +72,28 @@ export const NavBar = () => {
             <Search />
           </div>
         </div>
-        <div className="dropdown dropstart order-2 order-lg-3">
-          <button
-            className="btn btn-dark dropdown-toggle "
-            type="button"
-            data-bs-toggle="dropdown"
-            aria-expanded="false"
-          >
-            <span className="rounded-circle bg-primary p-1">JC</span>
-          </button>
-          <ul className="dropdown-menu">
-            <li>
-              <button
-                className="btn btn-link dropdown-item "
-                onClick={() => onLogout()}
-              >
-                Logout
-              </button>
-            </li>
-          </ul>
-        </div>
+        {logged && (
+          <div className="dropdown dropstart order-2 order-lg-3">
+            <button
+              className="btn btn-dark dropdown-toggle "
+              type="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              <span className="rounded-circle bg-primary p-1">{avatar}</span>
+            </button>
+            <ul className="dropdown-menu">
+              <li>
+                <button
+                  className="btn btn-link dropdown-item "
+                  onClick={onLogout}
+                >
+                  Logout
+                </button>
+              </li>
+            </ul>
+          </div>
+        )}
       </div>
     </nav>
   );

@@ -2,11 +2,17 @@ import { createBrowserRouter, Navigate } from "react-router-dom";
 import { LoginPage } from "../auth";
 import { MarvelPage, DcPage, SearchPage, HeroePage } from "../heroes";
 import { MainLayout } from "../layouts";
+import { PrivateRoute } from "./PrivateRoute";
+import { PublicRoute } from "./PublicRoute";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <MainLayout />,
+    element: (
+      <PrivateRoute>
+        <MainLayout />
+      </PrivateRoute>
+    ),
     children: [
       {
         path: "/",
@@ -32,7 +38,11 @@ const router = createBrowserRouter([
   },
   {
     path: "/login",
-    element: <LoginPage />,
+    element: (
+      <PublicRoute>
+        <LoginPage />,
+      </PublicRoute>
+    ),
   },
   {
     path: "*",
